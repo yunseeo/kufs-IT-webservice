@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>야풀이 : Home</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<script>
+/*퀴즈 스크립트*/
+    $(function () {
+        getQuiz();
+    });
+
+    function getQuiz() {
+        $.ajax({
+            url: "http://127.0.0.1:9999/puri/quiz",
+            type: "GET",
+
+            success: function (data, status, xhr) {
+                console.log(data);
+                var quizHtml = $("#quiz");
+
+                $("#quiz").data("qzid", data[0].qzid);
+
+                for (var i = 0; i < data.length; i++) {
+                    var liHtml = "<li>";
+                    liHtml += "<span><h3>" + data[i].content + "</h3></span>";
+                    liHtml += "<br/>";
+                    liHtml += "<input type='radio' id='o1' name='an' value=1/>"; /*value값 숫자로 전달*/
+                    liHtml += "<label style='margin-left: 5px;' for='o1'>" + "1. " + data[i].option1 + "</label>";
+                    liHtml += "<br/><br/>";
+                    liHtml += "<input type='radio' id='o2' name='an' value=2/>";
+                    liHtml += "<label style='margin-left: 5px;' for='o2'>" + "2. " + data[i].option2 + "</label>";
+                    liHtml += "<br/><br/>";
+                    liHtml += "<input type='radio' id='o3' name='an' value=3/>";
+                    liHtml += "<label style='margin-left: 5px;' for='o3'>"+ "3. " + data[i].option3 + "</label>";
+                    liHtml += "<br/><br/>";
+                    liHtml += "<input type='radio' id='o4' name='an' value=4/>";
+                    liHtml += "<label style='margin-left: 5px;' for='o4'>" + "4. "+ data[i].option4 + "</label>";
+                    liHtml += "</li>";
+                    quizHtml.append(liHtml);
+                }
+                console.log(quiz);
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr);
+            },
+        });
+    }
+
+    /*서버로 사용자 답 보내는 거.  */
+    $(function () {
+
+        $(document).on("click", "#submitAnswerBtn", function () {
+            submitQuiz()
+        });
+    });
+
+    function submitQuiz() {
+
+        var user_ans = $("input[name='an']:checked").val();
+
+        var qzid = $("#quiz").data("qzid");
+
+
+        if (user_ans === undefined) {
+            alert("답을 선택하세요.");
+            return;
+        }
+
+        var sendData = { qzid: qzid, user_ans: user_ans };
+
+        $.ajax({
+            url: "http://127.0.0.1:9999/puri/quiz/" + qzid + "/" + user_ans,
+            type: "PATCH",
+            contentType: "application/json",
+            data: JSON.stringify(sendData),
+            success: function (data, status, xhr) {
+                console.log(data);
+                alert(data);
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr);
+                alert(data);
+            },
+        });
+
+    }
+        /*여기까지임*/
+</script>
+<script>
+    /*팀 포인트 스크립트*/
+    $(function () {
+        getTeamRank();
+
+        $(document).ready(function () {
+            var team_name = $("#teamName").val();
+            var team_point = $("#teamPoint").val();
+
+            var sendData = {
+                team_name: team_name,
+                team_point: team_point,
+                checked: false
+            };
+
+            $.ajax({
+                url: "http://127.0.0.1:9999/puri/team_rank",
+                type: "GET",
+                contentType: "application/json",
+                data: JSON.stringify(sendData),
+                success: function (data, status, xhr) {
+                    console.log(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                },
+            });
+        });
+    });
+    function getTeamRank() {
+        $.ajax({
+            url: "http://127.0.0.1:9999/puri/team_rank",
+            type: "GET",
+
+            success: function (data, status, xhr) {
+                console.log(data);
+                var teamRankHtml = $("#teamRank");
+
+                for (var i = 0; i < data.length; i++) {
+                    var liHtml = "<li>";
+                    liHtml += "<span>" + (i + 1) + "등: </span>";
+                    liHtml += "<span>" + data[i].team_name + "</span>";
+                    liHtml += "<br/>";
+                    liHtml += "<span>팀 포인트: " + data[i].team_point + "</span>";
+                    liHtml += "</li><br/>";
+                    teamRankHtml.append(liHtml);
+                }
+                console.log(teamRank);
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr);
+            },
+        });
+    }
+</script>
+<!--<script>
+    //로그인 버튼
+    $(function () {
+            $(document).on("click", "#loginBtn", function () {
+                $.ajax({
+                    url: "http://127.0.0.1:8999/puri/online",
+                    type: "GET",
+                    contentType: "apllication/json",
+                    success: function (data, status, xhr) {
+                        console.log(data);
+                        if (data === 1) {
+                            var targetURL = "mypage.html";
+                            window.location.href = targetURL;
+                        } else {
+                            var targetURL = "login.html";
+                            window.location.href = targetURL;
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr);
+                    },
+                });
+            });
+        });
+</script>-->
+<script>
+    $(function () {
+    // Bind click event to the image
+        $("#loginBtn").on("click", function () {
+            $.ajax({
+                url: "http://127.0.0.1:9999/puri/online",
+                type: "GET",
+                contentType: "application/json", // Fix the typo in "application/json"
+                success: function (data, status, xhr) {
+                    console.log(data);
+                    if (data === 1) {
+                        var targetURL = "mypage.html";
+                        window.location.href = targetURL;
+                    } else {
+                        var targetURL = "login.html";
+                        window.location.href = targetURL;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                },
+            });
+        });
+    });
+</script>
+<script>
+/*자유게시판 스크립트*/
+    $(function() {
+        getPostList();
+    });
+
+    function getPostList() {
+        $.ajax ({
+            url: "http://127.0.0.1:9999/puri/board",
+            type: "GET",
+            
+            success: function(data, status, xhr) {
+                console.log(data);
+                var postListHtml = $("#postList");
+
+                for(var i=0; i<data.length; i++) {
+                    var tableHtml = "<li>";
+                    tableHtml += "<p>" + data[i].Title + "</p>";
+                    tableHtml += "</li>";
+
+                    postListHtml.append(tableHtml);
+                }
+                console.log(postList)
+            },
+            error : function(xhr, status, error) {
+                console.log(xhr);
+            },
+        });
+    }
+</script>
+<!--<script>
+    /*탭 클릭 시, 이동*/
+    /* targetURL에 이동할 파일의 경로를 붙여넣는다*/
+    //main 화면으로 이동
+    $(document).on("click", ".moveMain", function() {
+        var targetURL = "C:\Users\samsung\Desktop\kusf\kusf-sbg\homepage.html";
+        window.location.href = targetURL;
+    })
+    //about us 화면으로 이동
+    $(document).on("click", ".moveAbout", function() {
+        var targetURL = "C:\Users\samsung\Desktop\kusf\kusf-sbg\about.html";
+        window.location.href = targetURL;
+    })
+    //quiz 화면으로 이동
+    $(document).on("click", ".moveQuiz", function() {
+        var targetURL = "C:\Users\samsung\Desktop\kusf\kusf-sbg\quiz.html";
+        window.location.href = targetURL;
+    })
+    //point 화면으로 이동
+    $(document).on("click", ".movePoint", function() {
+        var targetURL = "C:\Users\samsung\Desktop\kusf\kusf-sbg\point.html";
+        window.location.href = targetURL;
+    })
+    //board 화면으로 이동
+    $(document).on("click", ".moveBoard", function () {
+        var targetURL = "C:\Users\samsung\Desktop\kusf\kusf-sbg\board.html";
+        window.location.href = targetURL;
+    })
+</script>-->
+
+<body>
+    <div id="container">
+        <header>
+            <div id="logo">
+                <a href="homepage.html" class="moveMain"><img src="img\logo.png" alt="로고"></a>
+            </div>
+            <nav>
+                <ul id="topMenu">
+                    <!--href에 이동할 파일의 상대경로 붙여넣기-->
+                    <!--about us 링크 추가-->
+                    <li><a href="about.html" class="moveAbout text-decoration-none">About us</a></li>
+                    <li><a href="quiz.html" class="moveQuiz text-decoration-none">퀴즈</a></li>
+                    <li><a href="point.html" class="movePoint text-decoration-none">포인트</a></li>
+                    <li><a href="http://www.statiz.co.kr/stat.php" target="_blank" class="text-decoration-none">기록실</a></li>
+                    <li><a href="board.html" class="moveBoard text-decoration-none">자유게시판</a></li>
+                </ul>
+            <!--<div id="logIn">
+                <input type="button" id="loginBtn customLogInBtn">
+            </div>-->
+            <div id="logIn">
+                <input type="image" src="img\마이페이지.jpg" alt="Log In" id="loginBtn" class="customLogInBtn" width="40px" height="40px">
+            </div>
+            </nav>
+        </header>
+        <div id="contents">
+            <div id="pointList">
+                <h3 style="text-align: center">팀 랭킹</h3>
+                <ul id="teamRank" class="lh-1" style="padding: 10px 10px 10px 10px; text-align: center;">
+                    <!--팀 랭킹 목록-->
+                    <!--1등: KT위즈-->
+                    <!--팀 포인트: 360-->
+                </ul>
+            </div>
+            <div id="todayQuizBack">
+                <img src="img\칠판.webp" alt="칠판" width="600px" height="500px">
+                <ul id="quiz" class="todayQuiz"></ul>
+                <input type="button" id="submitAnswerBtn" class="todayQuizBtn" value="제출">
+            </div>
+            <div id="boardList">
+                <h3 style="text-align: center">자유게시판</h3>
+                <ul id="postList" style="padding: 10px 10px 10px 10px;">
+                    <!--자유게시판 목록-->
+                <ul>
+            </div>
+        </div>
+        <footer>
+            <div id="bottomMenu">
+                <ul>
+                    <li><a href="#" class="text-decoration-none">스분감 소개</a></li>
+                    <li><a href="#" class="text-decoration-none">개인정보처리방침</a></li>
+                    <li><a href="#" class="text-decoration-none">이용약관</a></li>
+                    <li><a href="#" class="text-decoration-none">사이트맵</a></li>
+                </ul>
+                <div id="sns">
+                    <ul>
+                        <li><a href="#"><img src="img\카카오.png" weight="30px" height="30px"></a></li>
+                        <li><a href="#"><img src="img\인스타.jpeg" weight="30px" height="30px"></a></li>
+                        <li><a href="#"><img src="img\페이스북.jpg" weight="30px" height="30px"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="company">
+                <p>서울특별시 쿠스프구 스포츠데이터동 1조, 안치성-김원우-임규원-정윤서</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

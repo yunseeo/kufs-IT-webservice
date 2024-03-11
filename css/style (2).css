@@ -1,0 +1,209 @@
+/*폰트 불러오기*/
+@font-face {
+    font-family: '배달의민족 주아';
+    src: url('font\BMJUA_ttf.ttf') format('woff2'), /* Modern Browsers */
+         url('font\BMJUA_ttf.ttf') format('woff');   /* Older Browsers */
+    /* Add additional formats if needed */
+}
+
+* {
+    font-family: '배달의민족 주아', sans-serif;
+    margin: 0;              /*마진값 초기화*/
+    padding: 0;             /*패딩값 초기화*/
+    box-sizing: border-box; /*박스 영역은 테두리까지 지정*/
+}
+
+/*목록 불릿 기호 지우기*/
+ul {
+    list-style: none;
+}
+
+#container {
+    margin: 0 auto;         /*화면 중앙에 배치*/
+    width: 1400px;          /*너비 지정*/
+}
+
+/* 헤더 영역 */
+header {
+    width: 100%;            /* 너비 */
+    height: 113px;          /* 높이 */
+    position: relative;     /* Set position to relative for absolute positioning */
+}
+
+/* 로고 영역 */
+#logo {
+    float: left;
+    width: 250px;
+    height: 113px;
+    padding-left: 70px;
+}
+
+/* 내비게이션 영역 */
+nav {
+    float: right;
+    width: 1100px;
+    height: 113px;
+    padding-top: 40px;
+    border-bottom: 2px solid rgb(225, 220, 220);
+    position: relative; /* Set position to relative for absolute positioning */
+}
+#topMenu {
+    height: 60px;
+}
+#topMenu > li {
+    float: left;
+}
+#topMenu > li > a {
+    display: block;
+    color: black;
+    font-size: 25px;
+    font-weight: 600;
+    text-shadow: 0 1px gray;
+    padding: 20px 60px;
+}
+#topMenu > li > a:hover {
+    color: skyblue;
+    text-shadow: 0 -1px gray;
+}
+
+/* 로그인 영역 */
+#logIn {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    right: 0;
+}
+.customLogInBtn {
+    border: none; /* Remove the default button border */
+    cursor: pointer;
+}
+
+/*콘텐츠 영역*/
+#contents {
+    width: 100%;
+    /*height: 650px;*/
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*#contents {
+    width: 100%;
+    height: 650px;
+}*/
+
+/*포인트 리스트 영역*/
+#pointList {
+    float: left;
+    width: 200px;
+    height: 550px;
+    margin: 50px 20px 50px 50px;
+    border: medium solid rgb(225, 220, 220);
+    border-radius: 25px;
+    position: relative;
+    padding-top: 10px;
+}
+
+/*#pointList {
+    float: left;
+    width: 200px;
+    height: 550px;
+    margin: 50px 100px 50px 50px;
+    border: medium solid rgb(225, 220, 220);
+    border-radius: 25px;
+    position: relative;
+    padding-top: 10px;
+}*/
+
+/*이동 화면 콘텐츠 영역*/
+.subContents {
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    float: left;
+    width: calc(100% - 300px);
+    background-color: yellow;
+}
+
+/*퀴즈 칠판 영역*/
+#todayQuizBack {
+    float: left;
+    width: 600px;
+    height: 500px;
+    margin: 75px 100px 75px 80px;
+    position: relative
+}
+.todayQuiz {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 50px 10px 50px;
+    margin: 0;
+    font-size: 20px;
+    color: white;
+}
+.todayQuizBtn {
+    position: absolute;
+    bottom: 100px;
+    right: 100px;
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    margin: 0;
+    background-color: goldenrod;
+}
+
+/*게시판 리스트 영역*/
+#boardList {
+    float: right;
+    width: 300px;
+    height: 550px;
+    margin: 50px 50px 50px 0px;
+    border: medium solid rgb(225, 220, 220);
+    border-radius: 25px;
+    padding-top: 10px;
+}
+
+/*푸터 영역*/
+footer {
+    width: 100%;
+    height: 100px;
+    border-top: 2px solid #222;
+}
+
+#bottomMenu {
+    width: 100%;
+    height: 20px;
+    position: relative;
+}
+#bottomMenu ul {
+    margin-top: 15px;
+}
+#bottomMenu ul li {
+    float: left;
+    padding: 5px 20px;
+    border-right: 1px solid #ddd;
+}
+#bottomMenu ul li:last-child {
+    border-right: none;
+}
+#bottomMenu ul li a, #bottomMenu ul li a:visited {
+    font-size: 15px;
+    color: #666
+}
+#sns {
+    position: absolute;
+    right: 0;
+}
+#sns ul li {
+    border: none;
+    padding: 5px;
+}
+
+#company {
+    clear: left;
+    margin-top: 25px;
+    margin-left: 50px;
+    font-size: 14px;
+    color: #aaa;
+}

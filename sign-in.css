@@ -1,0 +1,68 @@
+html,
+body {
+  height: 100%;
+}
+
+.form-signin {
+  max-width: 500px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="id"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.start-button {
+  display: block; /* 블록 레벨 요소로 설정하여 가로폭을 100%로 만듭니다. */
+  width: 100%; /* 가로폭을 100%로 설정하여 부모 요소의 가로폭에 꽉 차게 합니다. */
+  padding: 8px; /* 내부 여백 설정 */
+  text-align: center; /* 텍스트를 중앙 정렬합니다. */
+  text-decoration: none; /* 링크의 기본 텍스트 스타일 제거 */
+  background-color: brown; /* 배경색 설정 */
+  color: #fff; /* 텍스트 색상 설정 */
+  border: 1px solid brown; /* 테두리 스타일 설정 */
+  border-radius: 5px; /* 모서리를 둥글게 만듭니다. */
+  font-size: 1rem; /* 글꼴 크기 설정 */
+  font-weight: 400;
+  cursor: pointer; /* 포인터 커서를 사용자에게 표시하여 클릭 가능함을 나타냅니다. */
+}
+
+.login-button {
+  display: block; /* 블록 레벨 요소로 설정하여 가로폭을 100%로 만듭니다. */
+  width: 100%; /* 가로폭을 100%로 설정하여 부모 요소의 가로폭에 꽉 차게 합니다. */
+  padding: 8px; /* 내부 여백 설정 */
+  text-align: center; /* 텍스트를 중앙 정렬합니다. */
+  text-decoration: none; /* 링크의 기본 텍스트 스타일 제거 */
+  background-color: blue; /* 배경색 설정 */
+  color: #fff; /* 텍스트 색상 설정 */
+  border: 1px solid blue; /* 테두리 스타일 설정 */
+  border-radius: 5px; /* 모서리를 둥글게 만듭니다. */
+  font-size: 1rem; /* 글꼴 크기 설정 */
+  font-weight: 400;
+  cursor: pointer; /* 포인터 커서를 사용자에게 표시하여 클릭 가능함을 나타냅니다. */
+}
+
+.input-button {
+  display: block; /* 블록 레벨 요소로 설정하여 가로폭을 100%로 만듭니다. */
+  width: 100%; /* 가로폭을 100%로 설정하여 부모 요소의 가로폭에 꽉 차게 합니다. */
+  padding: 8px; /* 내부 여백 설정 */
+  text-decoration: none; /* 링크의 기본 텍스트 스타일 제거 */
+  border-radius: 5px; /* 모서리를 둥글게 만듭니다. */
+}
+
+.my-data {
+  font-size: 20px;
+  text-align: center;
+}
